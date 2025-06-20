@@ -1,3 +1,7 @@
+"""
+    Esse código eu fiz seguindo o curso da Alura.
+"""
+
 # Importando variaveis de ambiente
 from read_env import GEMINI_API_KEY
 
