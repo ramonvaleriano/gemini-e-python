@@ -3,13 +3,10 @@
 """
 
 # Importando variaveis de ambiente
-from read_env import GEMINI_API_KEY
+from read_env import GEMINI_API_KEY, MODELO_ESCOLHIDO
 
 # Importando Gemini
 import google.generativeai as genai
-
-# Modelo escolhido.
-MODELO_ESCOLHIDO = "learnlm-2.0-flash-experimental"
 
 # Configurando API key
 genai.configure(api_key=GEMINI_API_KEY)
