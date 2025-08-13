@@ -58,12 +58,13 @@ def execute_while() -> str:
     while question not in ["", " ", None]:
         response = execute(question=question)
 
+        print("\n\n")
+        print(f"A resposta: \n{response}")
+        print("\n\n")
+
+        question = str(input("Digite o tipo de produto que você deseja listar: "))
+
     return response
 
 
 response = execute_while()
-
-
-print("\n\n")
-print(f"A resposta: \n{response}")
-print("\n\n")
