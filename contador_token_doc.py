@@ -21,3 +21,11 @@ print("\n\n")
 print(f"Limites para o modelo Gemma: {limites_model_gemma}")
 print(f"Limites para o modelo Flash Learn: {limites_model_flash_learn}")
 print("\n\n")
+
+quantity_tokens_using_gemma = client.models.count_tokens(model=MODELO_GEMMA, contents="O que é uma calça moderna")
+
+print(f"Quantidade de tokens usando o modelo Gemma: {quantity_tokens_using_gemma.total_tokens}")
+
+quantity_tokens_flash_learn = client.models.count_tokens(model=MODELO_FLASH_LEARN, contents="O que é uma calça moderna")
+
+print(f"Quantidade de tokens usando o modelo Flash Learn: {quantity_tokens_flash_learn.total_tokens}")

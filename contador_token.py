@@ -26,4 +26,14 @@ limites_model_flash_learn = {
 print("\n\n")
 print(f"Limites para o modelo Gemma: {limites_model_gemma}")
 print(f"Limites para o modelo Flash Learn: {limites_model_flash_learn}")
-print("\n\n")
+print("\n")
+
+llm_gemma = genai.GenerativeModel(model_name=MODELO_GEMMA)
+quantity_tokens_using_gemma = llm_gemma.count_tokens("O que é uma calça moderna")
+
+print(f"Quantidade de tokens usando o modelo Gemma: {quantity_tokens_using_gemma}")
+
+llm_flash_learn = genai.GenerativeModel(model_name=MODELO_FLASH_LEARN)
+quantity_tokens_flash_learn = llm_flash_learn.count_tokens("O que é uma calça moderna")
+
+print(f"Quantidade de tokens usando o modelo Flash Learn: {quantity_tokens_flash_learn}")
