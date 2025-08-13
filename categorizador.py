@@ -24,10 +24,7 @@ def get_prompt_system(lista_categorias_possiveis: str) -> str:
 
 
 def gerator_response(
-    modelo_escolhido: str,
-    api_key: str,
-    system_instruction: str,
-    question: str
+    modelo_escolhido: str, api_key: str, system_instruction: str, question: str
 ):
     genai.configure(api_key=api_key)
 
@@ -56,12 +53,17 @@ def execute(question: str) -> str:
     return response
 
 
-question = "Escova de dentes de bambu"
+def execute_while() -> str:
+    question = str(input("Digite o tipo de produto que você deseja listar: "))
+    while question not in ["", " ", None]:
+        response = execute(question=question)
 
-response = execute(question=question)
+    return response
+
+
+response = execute_while()
 
 
 print("\n\n")
-print(f"A Pergunta: \n{question}!")
 print(f"A resposta: \n{response}")
 print("\n\n")

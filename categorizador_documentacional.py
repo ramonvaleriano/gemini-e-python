@@ -56,12 +56,17 @@ def execute(question: str) -> str:
     return response
 
 
-question = "Escova de dentes de bambu"
+def execute_while() -> str:
+    question = str(input("Digite o tipo de produto que você deseja listar: "))
+    while question not in ["", " ", None]:
+        response = execute(question=question)
 
-response = execute(question=question)
+    return response
+
+
+response = execute_while()
 
 
 print("\n\n")
-print(f"A Pergunta: \n{question}!")
 print(f"A resposta: \n{response}")
 print("\n\n")
