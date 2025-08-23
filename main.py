@@ -1,29 +1,19 @@
-from settings import GEMINI_API_KEY, MODELO_ESCOLHIDO
+from core.gemini_settings import GeminiSettings
+from utils.screen import Screen
 
-import google.generativeai as genai
 
+if __name__ == "__main__":
+    screen = Screen()
+    gemini_settings = GeminiSettings()
 
-genai.configure(api_key=GEMINI_API_KEY)
+    while screen.contador < 3:
+        result = screen.start_menu()
 
-prompt_system = "Liste apenas os nomes dos produto, e ofereça uma breve descrição."
+        if result.upper() == "SAIR":
+            break
 
-config_model = {
-    "temperature": 2.0,
-    "top_p": 0.9,
-    "top_k": 64,
-    "max_output_tokens": 8192,
-    "response_mime_type": "text/plain",
-}
+        response = gemini_settings.gerator_context(question=result, text_alone=True)
 
-llm = genai.GenerativeModel(
-    model_name=MODELO_ESCOLHIDO,
-    system_instruction=prompt_system,
-    generation_config=config_model,
-)
+        screen.response_screen(response)
 
-question = "Liste três produtos de moda sustentável para ir ao shopping."
-
-response = llm.generate_content(question)
-text_response = response.text
-
-print(f"Resposta gerada pelo Gemini: \n{text_response}")
+        screen.contador += 1
