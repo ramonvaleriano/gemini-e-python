@@ -1,9 +1,6 @@
 import google.generativeai as genai
 
-from read_env import GEMINI_API_KEY, MODELO_ESCOLHIDO
-
-# Configurando Genai
-genai.configure(api_key=GEMINI_API_KEY)
+from settings import GEMINI_API_KEY, MODELO_ESCOLHIDO
 
 
 def carrega(nome_do_arquivo):
@@ -23,7 +20,7 @@ def salva(nome_do_arquivo, conteudo):
         print(f"Erro ao salvar arquivo: {e}")
 
 
-prompt_sistema = """
+system_intruction = """
         Você é um analisador de sentimentos de avaliações de produtos.
         Escreva um parágrafo com até 50 palavras resumindo as avaliações e
         depois atribua qual o sentimento geral para o produto.
@@ -38,19 +35,31 @@ prompt_sistema = """
         Pontos fracos: lista com três bullets
     """
 
-
 nome_produto = "Camisetas de algodão orgânico"
+caminho_dado = f"dados/avaliações-{nome_produto}.txt"
+prompt_usuario = carrega(caminho_dado)
 
-prompt_ususario = carrega(f"dados/avaliações-{nome_produto}.txt")
+print("\n")
+print(f"Caminho do arquivo: {caminho_dado}")
+print(f"Iniciando a analisar de sentimentos: {prompt_usuario}")
+print("\n")
 
-print(f"Iniciando análise de sentimentos do produto: {nome_produto}")
+genai.configure(api_key=GEMINI_API_KEY)
+
+config_mode = {
+    "temperature": 2,
+    "max_output_tokens": 8192,
+    "response_mime_type": "text/plain",
+}
 
 llm = genai.GenerativeModel(
-    system_instruction=prompt_sistema,
-    model_name=MODELO_ESCOLHIDO
+    model_name=MODELO_ESCOLHIDO,
+    system_instruction=system_intruction,
+    #generation_config=config_mode,
 )
 
-resposta = llm.generate_content(prompt_ususario)
-resposta_text = resposta.text
+response = llm.generate_content(prompt_usuario)
 
-salva(f"dados/resposta-{nome_produto}.txt", resposta_text)
+print("\n\n")
+print("Testando o LLM: ")
+print(f"Resposta: {response.text}")
